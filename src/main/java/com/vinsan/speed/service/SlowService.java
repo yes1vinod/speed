@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class ParallelProcessing {
+public class SlowService {
+
     @Autowired
     private CommonService commonService;
 
@@ -22,11 +23,10 @@ public class ParallelProcessing {
         List<HouseBO> listInputHouseBO = dataLoad.getDataFromCSV();
 
         Instant startTime = Instant.now();
-        List<HouseBO> listOutputHouseBO = listInputHouseBO.parallelStream().map(item -> commonService.findEligibility(item)).collect(Collectors.toList());
+        List<HouseBO> listOutputHouseBO = listInputHouseBO.stream().map(item -> commonService.findEligibility(item)).collect(Collectors.toList());
         Instant completionTime = Instant.now();
         log.info("Total Time taken --> {}", Duration.between(startTime, completionTime));
 
         return listOutputHouseBO;
     }
-
 }

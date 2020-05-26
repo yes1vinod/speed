@@ -26,5 +26,7 @@ public class HouseBO {
     @JsonProperty("ocean_proximity")
     private String oceanProximity;
 
+    private boolean processCompleted;
+
 
 }
